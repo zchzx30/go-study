@@ -1,0 +1,19 @@
+package 别名：
+// 为fmt起别名为fmt2
+import fmt2 "fmt"
+
+
+
+
+省略调用(不建议使用):
+// 调用的时候只需要Println()，而不需要fmt.Println()
+import . "fmt"
+
+
+
+
+前面加个点表示省略调用，那么调用该模块里面的函数，可以不用写模块名称了:
+import . "fmt"
+func main (){
+    Println("hello,world")
+}
