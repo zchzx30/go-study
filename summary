@@ -1,19 +1,97 @@
-package 别名：
+1、package 别名：
 // 为fmt起别名为fmt2
 import fmt2 "fmt"
 
 
-
-
-省略调用(不建议使用):
+2、省略调用(不建议使用):
 // 调用的时候只需要Println()，而不需要fmt.Println()
 import . "fmt"
 
 
 
-
-前面加个点表示省略调用，那么调用该模块里面的函数，可以不用写模块名称了:
+3、前面加个点表示省略调用，那么调用该模块里面的函数，可以不用写模块名称了:
 import . "fmt"
 func main (){
     Println("hello,world")
 }
+
+4、基础
+通过 const 关键字来进行常量的定义。
+通过在函数体外部使用 var 关键字来进行全局变量的声明和赋值。
+通过 type 关键字来进行结构(struct)和接口(interface)的声明。
+通过 func 关键字来进行函数的声明
+
+
+5、可见性规则
+Go语言中，使用大小写来决定该常量、变量、类型、接口、结构或函数是否可以被外部包所调用。
+函数名首字母小写即为 private :
+func getId() {}
+函数名首字母大写即为 public :
+func Printf() {}
+
+
+6、基本类型
+(a) 指针类型（Pointer）
+(b) 数组类型
+(c) 结构化类型(struct)
+(d) Channel 类型
+(e) 函数类型
+(f) 切片类型
+(g) 接口类型（interface）
+(h) Map 类型
+(i) 布尔类型   默认为 false
+(j) 数字类型
+(k) 字符串类型
+
+7、常量的定义
+const a, b, c = 1, false, "str" //多重赋值
+或者枚举使用
+const (
+    Unknown = 0
+    Female = 1
+    Male = 2
+)
+
+8、iota
+iota，特殊常量，可以认为是一个可以被编译器修改的常量。
+iota 在 const关键字出现时将被重置为 0(const 内部的第一行之前)，const 中每新增一行常量声明将使 iota 计数一次(iota 可理解为 const 语句块中的行索引)。
+iota 可以被用作枚举值：
+
+const (
+    a = iota
+    b = iota
+    c = iota
+)
+第一个 iota 等于 0，每当 iota 在新的一行被使用时，它的值都会自动加 1；所以 a=0, b=1, c=2 可以简写为如下形式：
+
+const (
+    a = iota
+    b
+    c
+)
+
+iota 用法
+package main
+import "fmt"
+func main() {
+    const (
+            a = iota   //0
+            b          //1
+            c          //2
+            d = "ha"   //独立值，iota += 1
+            e          //"ha"   iota += 1
+            f = 100    //iota +=1
+            g          //100  iota +=1
+            h = iota   //7,恢复计数
+            i          //8
+    )
+    fmt.Println(a,b,c,d,e,f,g,h,i)
+}
+以上实例运行结果为：
+0 1 2 ha ha 100 100 7 8
+
+9、其他
+a = "hello"
+unsafe.Sizeof(a)
+输出结果为：16
+字符串类型在 go 里是个结构, 包含指向底层数组的指针和长度,这两部分每部分都是 8 个字节，所以字符串类型大小为 16 个字节。
