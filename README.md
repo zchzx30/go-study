@@ -1,2 +1,2 @@
 # go-study
-test
+http://www.runoob.com/go/go-arrays.html
