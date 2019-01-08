@@ -1,0 +1,65 @@
+1、switch相关
+  1) 支持多条件匹配
+
+  switch{
+      case 1,2,3,4:
+      default:
+  }
+  2) 不同的 case 之间不使用 break 分隔，默认只会执行一个 case。
+
+  3) 如果想要执行多个 case，需要使用 fallthrough 关键字，也可用 break 终止。
+
+  switch{
+      case 1:
+      ...
+      if(...){
+          break
+      }
+
+      fallthrough // 此时switch(1)会执行case1和case2，但是如果满足if条件，则只执行case1
+
+      case 2:
+      ...
+      case 3:
+  }
+  
+  
+  2、Go 语言标准库提供了多种可动用的内置的函数。
+  例如，len() 函数可以接受不同类型参数并返回该类型的长度。如果我们传入的是字符串则返回字符串的长度，如果传入的是数组，则返回数组中包含的元素个数。
+  
+  3、函数、方法、闭包
+    Go 语言中同时有函数和方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。
+    所有给定类型的方法属于该类型的方法集。
+    1） 语法格式如下：
+    func (variable_name variable_data_type) function_name() [return_type]{
+       /* 函数体*/
+    }
+    //例如：该 method 属于 Circle 类型对象中的方法
+    func (c Circle) getArea() float64 {
+      //c.radius 即为 Circle 类型对象中的属性
+      return 3.14 * c.radius * c.radius
+    }
+    
+    2） 函数语法定义：
+    func function_name( [parameter list] ) [return_types] {
+       函数体
+    }
+    
+    3） 闭包是匿名函数，可在动态编程中使用。匿名函数是一个"内联"语句或表达式。匿名函数的优越性在于可以直接使用函数内的变量，不必申明。
+    package main
+    import "fmt"
+    func main() {
+        add_func := add(1,2)
+        fmt.Println(add_func(1,1))
+        fmt.Println(add_func(0,0))
+        fmt.Println(add_func(2,2))
+    } 
+    // 闭包使用方法
+    func add(x1, x2 int) func(x3 int,x4 int)(int,int,int)  {
+        i := 0
+        return func(x3 int,x4 int) (int,int,int){ 
+           i++
+           return i,x1+x2,x3+x4
+        }
+    }
+    
